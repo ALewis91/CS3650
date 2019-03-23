@@ -1,4 +1,4 @@
-public class Code							// converts asm fields into binary codes
+public class Code					// converts asm fields into binary codes
 {
 	public String dest(String dst)			// returns binary code for asm instr destination field
 	{
