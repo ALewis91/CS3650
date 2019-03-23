@@ -1,15 +1,15 @@
 import java.util.HashMap;
 
-public class SymbolTable 									// Hashmap for symbols and their addresses
+public class SymbolTable 							// Hashmap for symbols and their addresses
 {
 	private HashMap<String, Integer> table;					// declare hashmap variable table
 	
-	public SymbolTable()									// constructor
+	public SymbolTable()							// constructor
 	{
 		table = new HashMap<String, Integer>();				// initializes table
 	}
 	
-	public void addEntry(String symbol, Integer address)	// adds a new symbol and address to table
+	public void addEntry(String symbol, Integer address)			// adds a new symbol and address to table
 	{
 		table.put(symbol, address);
 	}
