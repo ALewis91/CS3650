@@ -1,0 +1,139 @@
+// Driver for my simple game about growing trees, watering them, and 
+// getting logs from cutting them down
+
+class Main
+{
+	function void main()
+	{
+		// Local variables
+		var Tree tree;		// current tree	
+		var char input;		// current character input from keyboard
+		var int logs;
+		var boolean exit;	// sentinel to end program
+		
+		// Init local vars
+		let exit = false;	// init sentinel to false so that game starts
+		let tree = Tree.new();	// create a tree object and store it in tree var
+		let input = 0;
+		
+		// Continue playing until sentinel is true
+		while (~exit)
+		{
+			
+			// Draw tree and prompt user to "water it"
+			do tree.draw();		
+			do Output.moveCursor(0, 0);
+			do Output.printString("A tree seed has been planted. Enter 'w' to water it!");
+
+			// Loop until the user "waters" the tree
+			while(~(input = 87))
+			{
+				do Output.moveCursor(3, 0);
+				let input = Keyboard.readChar();
+			}
+
+			// Water the tree, advance its stage, and prompt for more water
+			do tree.draw();		
+			do Output.moveCursor(0, 0);
+			do Output.printString("The seed has been watered!");
+			do tree.water();
+			do Sys.wait(20000);
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The seed grew into a sapling!");
+			do Sys.wait(16000);
+			do Output.moveCursor(0, 0);
+			do Output.printString("The small sapling is getting thirsty. Enter 'w' to water it!");
+			do Output.moveCursor(3, 0);
+
+			// Loop until the user "waters" the tree
+			let input = Keyboard.readChar();
+			while(~(input = 87))
+			{
+				do Output.moveCursor(3, 0);
+				let input = Keyboard.readChar();
+			}
+			do Output.moveCursor(3, 0);
+
+			// Water the tree, advance its stage, and prompt for more water			
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The sapling has been watered!");
+			do tree.water();
+			do Sys.wait(20000);
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The sapling grew into a small tree!");
+			do Sys.wait(16000);
+			do Output.moveCursor(0, 0);
+			do Output.printString("The small tree is getting thirsty. Enter 'w' to water it!");
+			do Output.moveCursor(3, 0);
+
+			// Loop until the user "waters" the tree			
+			let input = Keyboard.readChar();
+			while(~(input = 87))
+			{
+				do Output.moveCursor(3, 0);
+				let input = Keyboard.readChar();
+			}
+			do Output.moveCursor(3, 0);
+
+			// Water the tree, advance its stage, and prompt to cut down tree			
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The small tree has been watered!");
+			do tree.water();
+			do Sys.wait(16000);
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The small tree grew into a LARGE TREE!");
+			do Sys.wait(16000);
+			do Output.moveCursor(0, 0);
+			do Output.printString("The tree is pretty large. Enter 'c' to cut it!");	
+
+			// Loop until user "cuts down" tree
+			let input = Keyboard.readChar();
+			while(~(input = 67))
+			{
+				do Output.moveCursor(3, 0);
+				let input = Keyboard.readChar();
+			}
+			do Output.moveCursor(3, 0);
+		
+			// Cut down the tree, increment the number of logs you have and prompt to plant new tree
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("The LARGE TREE is being cut down!");
+			let logs = tree.cut();
+			do Sys.wait(20000);
+			do tree.draw();
+			do Output.moveCursor(0, 0);
+			do Output.printString("You got some logs! Enter 'p' to plant a new seed!");
+			do Output.moveCursor(3, 0);
+
+			// Get user input. If !='p' end game, else start over
+			let input = Keyboard.readChar();
+			if (~(input = 80))
+			{
+				let exit = true;
+				do tree.dispose();
+			}
+			else
+			{
+				do tree.draw();
+				do Sys.wait(5000);
+			}
+		}	
+
+		// Prints final log count and game over message and returns
+		do Screen.clearScreen();
+		do Output.moveCursor(15, 10);
+		do Output.printString("GAME OVER!");
+		do Output.moveCursor(17, 10);
+		do Output.printString("You collected: ");
+		do Output.printInt(logs);
+		do Output.printString(" logs!");
+		return;
+	}
+	
+}

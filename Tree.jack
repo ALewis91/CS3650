@@ -1,0 +1,119 @@
+// Tree class which prints the tree to the screen based on its size
+// which can be incremented by "watering" it. When it's fully grown
+// the tree can then be cut down for 3 logs which are added to the log
+// counter for the game. Terrible graphics and game play but it does
+// a decent job of utilizing and demonstrating Jack instructions and 
+// organization.
+
+class Tree 
+{
+	// Object vars
+	field int currentState;	// the current size of the tree
+	field int logs;		// number of logs obtained from this object
+
+	// Constructor initializes vars
+	constructor Tree new()
+	{
+		let currentState = 0;
+		let logs = 0;
+		return this;
+	}
+	
+	// Draws the tree and the log count on the screen
+	method void draw()
+	{
+		do Screen.setColor(true);
+		do Screen.clearScreen();
+	
+		// Draw tree based on the current state
+		// Draws sapling
+		if (currentState = 1)
+		{
+			do Screen.drawLine(256, 240, 256, 233);
+			do Screen.drawLine(255, 236, 257, 236);
+			do Screen.drawLine(254, 235, 254, 233);
+			do Screen.drawLine(258, 235, 258, 233);
+			do Screen.drawPixel(255, 232);
+			do Screen.drawPixel(257, 232);
+			do Screen.drawPixel(256, 231);
+		}
+		
+		// Draws small tree
+		if (currentState = 2)
+		{
+			// Draw trunk
+			do Screen.setColor(true);
+			do Screen.drawLine(251, 240, 251, 160);
+			do Screen.drawLine(261, 240, 261, 160);
+			do Screen.drawLine(251, 230, 246, 240);
+			do Screen.drawLine(261, 230, 266, 240);
+
+			// Draw "leaves"
+			do Screen.drawCircle(256, 140, 25);
+			do Screen.setColor(false);
+			do Screen.drawCircle(256, 140, 23);
+
+		}	
+		
+		// Draws large tree
+		if (currentState = 3)
+		{
+
+			// Draw trunk
+			do Screen.setColor(true);
+			do Screen.drawLine(246, 240, 246, 100);
+			do Screen.drawLine(266, 240, 266, 100);
+			do Screen.drawLine(226, 240, 246, 220);
+			do Screen.drawLine(286, 240, 266, 220);
+			do Screen.drawLine(253, 240, 254, 170);
+			do Screen.drawLine(260,210, 261, 155);
+
+			// Draw "leaves"
+			do Screen.drawCircle(256, 60, 45);
+			do Screen.setColor(false);
+			do Screen.drawCircle(256, 60, 43);
+		}
+
+		// Prints the log count and returns
+		do Output.moveCursor(1, 0);
+		do Output.printString("Logs: ");
+		do Output.printInt(logs);
+		return;
+	}
+	
+	// Increase tree size
+	method void water()
+	{
+		// if the tree is not fully grown, increase its size
+		if (currentState < 3)
+		{
+			let currentState = (currentState + 1);
+		}
+		return;
+	}
+	
+	// Cut down tree and increment the log count
+	method int cut()
+	{
+		let currentState = 0;
+		let logs = logs + 3;
+		return logs;
+	}
+
+	// Restarts the growing process by setting currentState to 0
+	method void plantSeed()
+	{
+		
+		let currentState = 0;
+		return;
+	}
+	
+
+	// Deallocate tree memory
+	method void dispose()
+	{
+		do Memory.deAlloc(this);
+		return;
+	}
+	
+}
