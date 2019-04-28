@@ -140,7 +140,6 @@ public class CompilationEngine
 	{
 		if (tokens.get(position).contains("<symbol> ( </symbol>"))
 		{
-			System.out.println("Parameter " + tokens.get(position));
 			writer.write(indent + tokens.get(position++) + "\n");	// write '('
 			writer.write(indent + "<parameterList>\n");
 			indent += tab;
