@@ -49,11 +49,9 @@ public class Driver {
 	
 	public static void tokenize(JackTokenizer jt, PrintWriter writer)
 	{
-		System.out.println("tokenizer");
 		writer.write("<tokens>\n");
 		while (jt.hasMoreTokens())
 		{
-			System.out.println("Loop");
 			jt.advance();
 			writer.write("<" + jt.tokenType() + "> ");
 			if (jt.tokenType().equals("keyword"))
