@@ -20,7 +20,6 @@ public class Driver {
 			{
 				if (f.getName().endsWith(".jack"))
 				{
-					System.out.println(f.getName());
 					jt = new JackTokenizer(f);
 					outputFile = f.getName().substring(0, f.getName().length()-5) + "T.xml";
 					writer = new PrintWriter(new File(outputFile));
