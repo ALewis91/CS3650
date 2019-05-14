@@ -19,10 +19,13 @@ def newCircuit(configuration):      #create a new quantum circuit
     qReg = QuantumRegister(5, 'q')  #create a set of 5 quantum registers
     cReg = ClassicalRegister(5, 'c') #create a set of 5 classical registers
     qCirc = QuantumCircuit(qReg, cReg) #create a quantum circuit with registers
+    
+    #Configuration 1
     if configuration == 0:          #add only 1 hadamard gate per qubit
         for i in range(0, 5):       #puts qubits in superposition state
             qCirc.h(qReg[i])            #50/50 chance 0/1
     
+    #Configuration 2
     elif configuration == 1:        #add up to 4 h, x, y, or z gates per qubit
         for i in range(0, 5):       
             numGates = quantumRNG(4) # randomly choose how many gates to apply
@@ -127,7 +130,7 @@ def main():
     #print game title
     print("Welcome to Quantum Roulette!\n")
     print("This game tests your knowledge of Quantum physics\n")
-    print("Use your knowledge of quantum physics to make your best bet")
+    print("Use your knowledge of quantum circuits to make your best bet")
     
     #init vars
     playAgain = True
@@ -175,7 +178,7 @@ def main():
         
         #simulate the circuit and calculate bet winnings
         if choice == 2:     # spin
-            sim = BasicAer.get_backend('qasm_simulator')
+            sim = BasicAer.get_backend('qasm_simulator') 
             sim_result = execute(circ, sim).result()     #run simulation of circuit
             result_counts = sim_result.get_counts(circ)  #store counts of each outcome
             mostFreq = str(max(result_counts.items(), key=operator.itemgetter(1))[0]) #retrieve most freq outcome
@@ -217,7 +220,7 @@ def viewCircuit(qCirc):
 def bet(currentFunds, hiBet, loBet, evenBet, oddBet, numberBet, numberSel):
     if currentFunds < 1:
         print("Insufficient credits. Please add more credits to play")
-        return
+        return currentFunds, hiBet, loBet, evenBet, oddBet, numberBet, numberSel
     betChoice = 0
     betChoice = int(input("1. Bet Low (1-15)\n2. Bet High (16-30)\n3. Bet Even\n4. Bet Odd\n5. Bet on a Number\n"))
     while betChoice < 1 and betChoice > 6:
@@ -297,7 +300,9 @@ def printRules():
     print("*\n* Game Rules")
     print("*\n* Qubits are measured after passing through the gates on the quantum circuit")
     print("* Their measurements are stored in the classical registers and they represent a")
-    print("* binary number between 0 and 31")
+    print("* binary number between 0 and 31\n*")
+    print("* Automatic Loss - if you 'spin' the quantum roulette wheel and the binary value")
+    print("*        is 0 or 31, you automatically lose. The house always wins...")
     print("*\n* Bet High - if you 'spin' the quantum roulette wheel and the binary value")
     print("*        is greater than 15 and not equal to 31 then you win double your bet\n*")
     print("* Bet Low - if you 'spin' the quantum roulette wheel and the binary value")
@@ -335,4 +340,3 @@ def calcWinnings(thisSpin, betHigh, betLow, betEven, betOdd, betNumber, numberSe
 
 #calls main to play the game
 main()
- 
